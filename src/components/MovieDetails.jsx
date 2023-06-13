@@ -1,8 +1,8 @@
 // import { getTrendyMovies } from './API';
-import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
+import { Link, Outlet, useParams } from 'react-router-dom';
 import { getMovieDetails } from './API';
 import { useEffect, useState } from 'react';
-import { Location } from 'react-router-dom';
+// import { Location } from 'react-router-dom';
 const imgPlaceholder =
   'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png';
 
