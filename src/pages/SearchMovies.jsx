@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { getSearchedMovies } from 'components/API';
-import { Link } from 'react-router-dom';
-import { TrendyMovieItem } from 'components/TrendyMovieItem';
+
+import { MovieList } from 'components/MovieList';
 
 export const SearchMovies = () => {
   const [query, setQuery] = useState('');
@@ -41,13 +41,7 @@ export const SearchMovies = () => {
         <button type="submit">Search</button>
       </form>
       {foundMovies.length > 0 ? (
-        <ul>
-          {foundMovies.map(movie => (
-            <Link state={'100'} to={`/movies/${movie.id}`}>
-              {<TrendyMovieItem key={movie.id} movie={movie} />}
-            </Link>
-          ))}
-        </ul>
+        <MovieList movies={foundMovies} />
       ) : (
         <p>No movies found for the query: {search}</p>
       )}

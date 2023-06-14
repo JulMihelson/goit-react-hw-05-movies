@@ -1,8 +1,8 @@
 // import { getTrendyMovies } from './API';
 
 import { Link, Outlet, useParams, useLocation } from 'react-router-dom';
-import { getMovieDetails } from './API';
-import { useEffect, useState } from 'react';
+import { getMovieDetails } from '../components/API';
+import { useEffect, useRef, useState } from 'react';
 
 const imgPlaceholder =
   'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png';
@@ -11,6 +11,7 @@ export const MovieDetails = () => {
   const [movies, setMovies] = useState(null);
   const { movieId } = useParams();
   const location = useLocation();
+  const goBack = useRef(location?.state?.from || '/');
 
   useEffect(() => {
     getMovieDetails(movieId).then(data => {
@@ -20,16 +21,10 @@ export const MovieDetails = () => {
   if (!movies) {
     return;
   }
-  const goBack = () => {
-    if (location.state && location.state.from) {
-      window.location = location.state.from;
-    } else {
-      window.history.back();
-    }
-  };
+
   return (
     <div>
-      <button onClick={goBack}>Go back</button>
+      <Link to={goBack.current}>Go back</Link>
       <h1>{movies.title}</h1>
       <img
         src={
@@ -42,8 +37,8 @@ export const MovieDetails = () => {
       <p>{movies.overview}</p>
       <p>Additional information</p>
       <ul>
-        <Link to={'cast'}>Cast</Link>
-        <Link to={'reviews'}>Reviews</Link>
+        <Link to="cast">Cast</Link>
+        <Link to="reviews">Reviews</Link>
       </ul>
       <Outlet />
     </div>
