@@ -1,4 +1,5 @@
 // import { getTrendyMovies } from './API';
+
 import { Link, Outlet, useParams, useLocation } from 'react-router-dom';
 import { getMovieDetails } from './API';
 import { useEffect, useState } from 'react';
@@ -27,7 +28,7 @@ export const MovieDetails = () => {
     }
   };
   return (
-    <>
+    <div>
       <button onClick={goBack}>Go back</button>
       <h1>{movies.title}</h1>
       <img
@@ -45,6 +46,6 @@ export const MovieDetails = () => {
         <Link to={'reviews'}>Reviews</Link>
       </ul>
       <Outlet />
-    </>
+    </div>
   );
 };
