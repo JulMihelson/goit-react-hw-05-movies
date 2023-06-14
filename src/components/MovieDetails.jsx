@@ -1,14 +1,15 @@
 // import { getTrendyMovies } from './API';
-import { Link, Outlet, useParams } from 'react-router-dom';
+import { Link, Outlet, useParams, useLocation } from 'react-router-dom';
 import { getMovieDetails } from './API';
 import { useEffect, useState } from 'react';
-// import { Location } from 'react-router-dom';
+
 const imgPlaceholder =
   'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png';
 
 export const MovieDetails = () => {
   const [movies, setMovies] = useState(null);
   const { movieId } = useParams();
+  const location = useLocation();
 
   useEffect(() => {
     getMovieDetails(movieId).then(data => {
@@ -18,9 +19,16 @@ export const MovieDetails = () => {
   if (!movies) {
     return;
   }
+  const goBack = () => {
+    if (location.state && location.state.from) {
+      window.location = location.state.from;
+    } else {
+      window.history.back();
+    }
+  };
   return (
     <>
-      <Link to={'/'}> Go back</Link>
+      <button onClick={goBack}>Go back</button>
       <h1>{movies.title}</h1>
       <img
         src={
